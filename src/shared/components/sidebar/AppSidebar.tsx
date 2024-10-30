@@ -1,4 +1,4 @@
-import { Save } from "lucide-react"
+import { GalleryHorizontalEnd, Home, Image, Save } from "lucide-react"
  
 import {
   Sidebar,
@@ -16,21 +16,36 @@ import { Link } from "react-router-dom"
 // Menu items.
 const items = [
   {
-    title: "File Saving",
-    url: "file-save",
+    title: "Dashboard",
+    url: "/",
+    icon: Home,
+  },
+  {
+    title: "Images",
+    url: "images",
+    icon: Image,
+  },
+  {
+    title: "Image Upload",
+    url: "image-upload",
     icon: Save,
+  },
+  {
+    title: "Multiple Image Upload",
+    url: "multiple-image-upload",
+    icon: GalleryHorizontalEnd,
   },
 ]
  
 export function AppSidebar() {
   return (
     <Sidebar>
-      <SidebarHeader className=" text-3xl font-sans ">
-        File Saving Task
+      <SidebarHeader className=" text-3xl font-sans">
+        Image Saving Task
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Save a File</SidebarGroupLabel>
+          <SidebarGroupLabel>Image Upload</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (

@@ -1,6 +1,7 @@
 import { useOutlet } from 'react-router'
 import './App.css'
 import { Layout } from './shared/components/Layout'
+import { Home } from './features/home/components/Home';
 
 const App: React.FC = () => {
 
@@ -8,7 +9,7 @@ const App: React.FC = () => {
 
   return (
     <Layout>
-      {outlet || <p>Hi and welcome to File Saving Activity! Navigate to File Saving for the Main Program</p>}
+      {outlet || <Home />}
     </Layout>
   )
 }

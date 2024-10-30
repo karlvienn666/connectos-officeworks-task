@@ -1,6 +1,7 @@
 import { ReactNode } from "react"
-import { AppSidebar } from "./Sidebar"
+import { AppSidebar } from "./sidebar/AppSidebar"
 import { SidebarProvider, SidebarTrigger } from "./ui/sidebar"
+import { AppSidebarInset } from "./sidebar/AppSidebarInset"
 
 interface LayoutProps {
     children: ReactNode
@@ -9,13 +10,10 @@ interface LayoutProps {
 export const Layout: React.FC<LayoutProps> = ({children}) => {
     return (
     <SidebarProvider>
-        <AppSidebar />  
-        <main>
-            <SidebarTrigger />
-            <div className="p-2">
-                {children}
-            </div>
-        </main>
+        <AppSidebar />
+        <AppSidebarInset>
+            {children}
+        </AppSidebarInset>
     </SidebarProvider>
     )
 }
