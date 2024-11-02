@@ -29,12 +29,7 @@ const items = [
     title: "Image Upload",
     url: "image-upload",
     icon: Save,
-  },
-  {
-    title: "Multiple Image Upload",
-    url: "multiple-image-upload",
-    icon: GalleryHorizontalEnd,
-  },
+  }
 ]
  
 export function AppSidebar() {
@@ -45,7 +40,7 @@ export function AppSidebar() {
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Image Upload</SidebarGroupLabel>
+          <SidebarGroupLabel>Image Manager</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (

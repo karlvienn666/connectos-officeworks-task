@@ -1,12 +1,19 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { selectImageThumbnails } from "../imageManagerSelector";
+import { setImageThumbnails } from "../imageManagerSlice";
+import { useAppDispatch } from "@/app/hooks";
 
-type Thumbnail = {
+export type Thumbnail = {
     key: string; 
     value: string;
 };
 
 export const useThumbnail = (acceptedFiles: File[]) => {
-    const [thumbnails, setThumbnails] = useState<Thumbnail[]>([]);
+
+    const dispatch = useAppDispatch();
+
+    const thumbnails = useSelector(selectImageThumbnails)
 
     useEffect(() => {
 
@@ -14,17 +21,18 @@ export const useThumbnail = (acceptedFiles: File[]) => {
             key: file.name,
             value: URL.createObjectURL(file),
         }));
-
-        setThumbnails(prev => [...prev, ...newThumbnails]);
+        
+        console.log("SHEEESH", newThumbnails);
+        dispatch(setImageThumbnails([...thumbnails, ...newThumbnails]));
+        
 
         // To avoid memory leaks when unmounting
         return () => {
             newThumbnails.forEach(thumbnail => URL.revokeObjectURL(thumbnail.value));
+            dispatch(setImageThumbnails([]));
         };
 
     },[acceptedFiles]);
-
-
 
     return {thumbnails}
 

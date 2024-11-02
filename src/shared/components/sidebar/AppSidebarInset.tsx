@@ -31,7 +31,7 @@ export const AppSidebarInset: React.FC<AppSidebarInsetprops> = ({children}) => {
                 </BreadcrumbList>
             </Breadcrumb>
             </header>
-            <div className="flex p-2 h-full">
+            <div className="flex p-2 h-full bg-background">
                 {children}
             </div>
         </SidebarInset>

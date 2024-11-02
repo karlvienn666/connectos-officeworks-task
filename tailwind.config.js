@@ -35,6 +35,7 @@ export default {
   			},
   			muted: {
   				DEFAULT: 'hsl(var(--muted))',
+				transparent: 'hsl(var(--muted-transparent))',
   				foreground: 'hsl(var(--muted-foreground))'
   			},
   			accent: {
@@ -69,6 +70,7 @@ export default {
 		fontFamily: {
 			
 		}
+
   	}
   },
   corePlugins: {

@@ -1,9 +1,9 @@
-import fileSaveReducer from '@/features/fileSave/fileSaveSlice'
+import imageManagerReducer from '@/features/imageManager/imageManagerSlice'
 import { configureStore } from '@reduxjs/toolkit'
 
 export const store = configureStore({
   reducer: {
-    fileSave: fileSaveReducer
+    imageManager: imageManagerReducer
   }
 })
 

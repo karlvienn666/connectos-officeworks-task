@@ -6,8 +6,7 @@ import { Provider } from 'react-redux'
 import { store } from './app/store'
 import { createHashRouter, RouterProvider } from 'react-router-dom'
 
-const ImageUpload = lazy(() => import('./features/fileSave/components/ImageUpload'));
-const MultipleImageUpload = lazy(() => import('./features/fileSave/components/MultipleImageUpload'));
+const ImageUpload = lazy(() => import('./features/imageManager/components/ImageUpload'));
 
 const router = createHashRouter([
   {
@@ -24,12 +23,6 @@ const router = createHashRouter([
         path: "image-upload",
         element: <Suspense fallback={<div>Loading...</div>}>
           <ImageUpload />
-        </Suspense>
-      },
-      {
-        path: "multiple-image-upload",
-        element: <Suspense fallback={<div>Loading...</div>}>
-          <MultipleImageUpload />
         </Suspense>
       }
     ]
