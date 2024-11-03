@@ -7,6 +7,7 @@ import { store } from './app/store'
 import { createHashRouter, RouterProvider } from 'react-router-dom'
 
 const ImageUpload = lazy(() => import('./features/imageManager/components/ImageUpload'));
+const Images = lazy(() => import('./features/imageManager/components/Images'));
 
 const router = createHashRouter([
   {
@@ -16,7 +17,7 @@ const router = createHashRouter([
       {
         path: "images",
         element: <Suspense fallback={<div>Loading...</div>}>
-          <ImageUpload />
+          <Images />
         </Suspense>
       },
       {

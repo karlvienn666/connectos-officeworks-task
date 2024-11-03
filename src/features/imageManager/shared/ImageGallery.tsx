@@ -1,10 +1,10 @@
 
-import { Thumbnail } from "../hooks/useThumbnail"
 import { Eye } from "lucide-react";
 import { Button } from "@/shared/components/ui/button";
 import { ImageOptions } from "./ImageOptions";
 import { useImagePreview } from "../hooks/useImagePreview";
 import { useDeletePreviewImage } from "../hooks/useDeletePreviewImage";
+import { Thumbnail } from "../types";
 
 interface ImageGalleryProps {
     children: React.ReactNode;

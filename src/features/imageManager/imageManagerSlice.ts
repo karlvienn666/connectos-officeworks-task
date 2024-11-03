@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { Thumbnail } from "./hooks/useThumbnail";
+import { fetchImages, insertImages } from "./imageManagerAction";
+import { Image, Thumbnail } from "./types";
 
 interface ImageManagerState {
     imagePreview: {
@@ -7,7 +8,11 @@ interface ImageManagerState {
         url: string;
         name: string
     };
-    imageThumbnails: Thumbnail[]
+    imageThumbnails: Thumbnail[],
+    images: {
+        isLoading: boolean;
+        data: Image[]
+    }
 }
   
 const initialState: ImageManagerState = {
@@ -16,7 +21,11 @@ const initialState: ImageManagerState = {
         url: '',
         name: ''
     },
-    imageThumbnails: []
+    imageThumbnails: [],
+    images: {
+        isLoading: false,
+        data: []
+    }
 }
 
 
@@ -36,6 +45,18 @@ export const imageManagerSlice = createSlice({
         setImageThumbnails: (state, action) => {
             state.imageThumbnails = action.payload
         }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(fetchImages.fulfilled, (state, action) => {
+            state.images.isLoading = false;
+            state.images.data = action.payload;
+        })
+        .addCase(fetchImages.pending, (state) => {
+            state.images.isLoading = true;
+        })
+        .addCase(insertImages.fulfilled, (state) => {
+            state.imageThumbnails = [];
+        })
     },
 })
   

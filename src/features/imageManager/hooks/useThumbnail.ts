@@ -4,10 +4,6 @@ import { selectImageThumbnails } from "../imageManagerSelector";
 import { setImageThumbnails } from "../imageManagerSlice";
 import { useAppDispatch } from "@/app/hooks";
 
-export type Thumbnail = {
-    key: string; 
-    value: string;
-};
 
 export const useThumbnail = (acceptedFiles: File[]) => {
 
