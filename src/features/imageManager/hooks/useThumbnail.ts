@@ -14,6 +14,7 @@ export const useThumbnail = (acceptedFiles: File[]) => {
     useEffect(() => {
 
         const newThumbnails = acceptedFiles.map(file => ({
+            id: file.name,
             key: file.name,
             value: URL.createObjectURL(file),
         }));

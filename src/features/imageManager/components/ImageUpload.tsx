@@ -43,7 +43,7 @@ const ImageUpload: React.FC = () => {
             </form>
             
             <ImageGallery >
-                <ImageGallery.ImageList thumbnails={thumbnails} />
+                <ImageGallery.ImagePreviewList thumbnails={thumbnails} />
             </ImageGallery >
 
             {isDragActive && <DragDropForeground />}

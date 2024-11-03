@@ -5,6 +5,7 @@ import './index.css'
 import { Provider } from 'react-redux'
 import { store } from './app/store'
 import { createHashRouter, RouterProvider } from 'react-router-dom'
+import { Toaster } from './shared/components/ui/toaster'
 
 const ImageUpload = lazy(() => import('./features/imageManager/components/ImageUpload'));
 const Images = lazy(() => import('./features/imageManager/components/Images'));
@@ -35,6 +36,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <Provider store={store}>
       <RouterProvider router={router} />
+      <Toaster />
     </Provider>
   </React.StrictMode>,
 )

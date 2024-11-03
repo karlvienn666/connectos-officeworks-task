@@ -5,6 +5,10 @@ import { ImageOptions } from "./ImageOptions";
 import { useImagePreview } from "../hooks/useImagePreview";
 import { useDeletePreviewImage } from "../hooks/useDeletePreviewImage";
 import { Thumbnail } from "../types";
+import { useDeleteImage } from "../hooks/useDeleteImage";
+import { useSelector } from "react-redux";
+import { selectIsImageLoading } from "../imageManagerSelector";
+import { Skeleton } from "@/shared/components/ui/skeleton";
 
 interface ImageGalleryProps {
     children: React.ReactNode;
@@ -16,10 +20,12 @@ interface ImageListProps{
 
 interface ImageCardProps{
     thumbnail: Thumbnail;
+    handleDelete?: (id: string) => void;
 }
 
 interface ImageGalleryComponent extends React.FC<ImageGalleryProps> {
     ImageList: React.FC<ImageListProps>;
+    ImagePreviewList: React.FC<ImageListProps>;
 }
 
 export const ImageGallery: ImageGalleryComponent = ({children}) => {
@@ -33,11 +39,46 @@ export const ImageGallery: ImageGalleryComponent = ({children}) => {
 
 const ImageList: React.FC<ImageListProps> = ({thumbnails}) => {
 
+    const {handleDelete} = useDeleteImage();
+    const isLoading = useSelector(selectIsImageLoading);
+
+    const baseClassNameSkeleton = 'h-[300px] w-[200px] m-2 rounded-3xl p-4'
+
+    return (
+    <>
+        
+        {
+            thumbnails.map((thumb) => (
+                <ImageCard thumbnail={thumb} key={thumb.value} handleDelete={handleDelete}/>
+            ))
+        }
+        
+        {isLoading&& (<>
+            <Skeleton className={baseClassNameSkeleton}/>
+            <Skeleton className={baseClassNameSkeleton}/>
+            <Skeleton className={baseClassNameSkeleton}/>
+            <Skeleton className={baseClassNameSkeleton}/>
+            <Skeleton className={baseClassNameSkeleton}/>
+            <Skeleton className={baseClassNameSkeleton}/>
+            <Skeleton className={baseClassNameSkeleton}/>
+            <Skeleton className={baseClassNameSkeleton}/>
+            <Skeleton className={baseClassNameSkeleton}/>
+            <Skeleton className={baseClassNameSkeleton}/>
+        </>)}
+    </>
+    )
+}
+
+const ImagePreviewList: React.FC<ImageListProps> = ({thumbnails}) => {
+
+    
+    const {onDelete} = useDeletePreviewImage();
+
     return (
     <>
         {
             thumbnails.map((thumb) => (
-                <ImageCard thumbnail={thumb} key={thumb.value}/>
+                <ImageCard thumbnail={thumb} key={thumb.value} handleDelete={onDelete}/>
             ))
         }
         
@@ -45,10 +86,9 @@ const ImageList: React.FC<ImageListProps> = ({thumbnails}) => {
     )
 }
 
-const ImageCard: React.FC<ImageCardProps> = ({thumbnail}) => {
+const ImageCard: React.FC<ImageCardProps> = ({thumbnail, handleDelete}) => {
 
     const {openActiveImage} = useImagePreview();
-    const {onDelete} = useDeletePreviewImage();
 
     const baseButtonClass = "h-7 w-0.5 outline-none focus:outline-none dark:bg-transparent dark:text-white dark:hover:bg-transparent";
 
@@ -65,11 +105,12 @@ const ImageCard: React.FC<ImageCardProps> = ({thumbnail}) => {
                 <Button className={baseButtonClass} onClick={() => openActiveImage(thumbnail.value, thumbnail.key)}>
                     <Eye className=""/>
                 </Button>
-                <ImageOptions onDelete={() => onDelete(thumbnail.key)} />
+                <ImageOptions onDelete={() => handleDelete?.(thumbnail?.id || thumbnail.key)} />
             </div>
         </div>
     )
 }
 
 ImageGallery.ImageList = ImageList;
+ImageGallery.ImagePreviewList = ImagePreviewList;
 

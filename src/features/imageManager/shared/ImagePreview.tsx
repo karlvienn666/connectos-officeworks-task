@@ -14,7 +14,7 @@ export const ImagePreview: React.FC<ImagePreview> = ({url, imageName}) => {
     const {togglePreview} = useImagePreview();
 
     return ReactDOM.createPortal(
-        <div className="absolute bg-muted-transparent w-full h-full left-0 top-0 z-20">
+        <div className=" fixed bg-muted-transparent w-full h-full left-0 top-0 z-20">
             <div className="h-full flex flex-col">
                 <div className="flex justify-end">
                     <div className="p-2">

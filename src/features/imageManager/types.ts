@@ -5,6 +5,7 @@ export interface Image{
 }
 
 export type Thumbnail = {
+    id?: string
     key: string; 
     value: string;
 };

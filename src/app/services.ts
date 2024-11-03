@@ -32,8 +32,8 @@ export class Services {
     return response;
   }
 
-  async delete(resource: string) {
-    const response = await axios.delete(this.url + resource);
+  async delete(resource: string, id: string) {
+    const response = await axios.delete(this.url + resource + `/${id}`);
     return response;
   }
   

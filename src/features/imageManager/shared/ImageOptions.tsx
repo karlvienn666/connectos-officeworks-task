@@ -1,3 +1,4 @@
+import { ConfirmationDialog } from "@/shared/components/ConfirmationModal";
 import { Button } from "@/shared/components/ui/button"
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/components/ui/popover"
 import { EllipsisVertical, MoreHorizontal, Trash2 } from "lucide-react"
@@ -19,10 +20,7 @@ export const ImageOptions: React.FC<ImageOptionsProps> = ({onDelete}) => {
             </Button>
         </PopoverTrigger>
         <PopoverContent className=" w-32 dark:bg-slate-900 p-0" side="bottom" align="end">
-            <Button variant="ghost" className="outline-none focus:outline-none dark:bg-transparent dark:text-white border-none w-full justify-start" onClick={onDelete}>
-                <Trash2 /> Delete
-            </Button>
-            {/* Popover content goes here */}
+            <ConfirmationDialog onOk={onDelete}/>
         </PopoverContent>
     </Popover>
     )

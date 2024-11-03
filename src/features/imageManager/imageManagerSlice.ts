@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { fetchImages, insertImages } from "./imageManagerAction";
+import { deleteImage, fetchImages, insertImages } from "./imageManagerAction";
 import { Image, Thumbnail } from "./types";
 
 interface ImageManagerState {
@@ -12,7 +12,10 @@ interface ImageManagerState {
     images: {
         isLoading: boolean;
         data: Image[]
-    }
+    },
+    loading: boolean;
+    page: number;
+    query: string;
 }
   
 const initialState: ImageManagerState = {
@@ -25,7 +28,10 @@ const initialState: ImageManagerState = {
     images: {
         isLoading: false,
         data: []
-    }
+    },
+    loading: false,
+    page:1,
+    query: ""
 }
 
 
@@ -44,22 +50,44 @@ export const imageManagerSlice = createSlice({
         },
         setImageThumbnails: (state, action) => {
             state.imageThumbnails = action.payload
+        },
+        setImageSearching:(state, action)=> {
+            state.query = action.payload;
+            state.images.data = [];
+            state.page = 1;
         }
     },
     extraReducers: (builder) => {
         builder.addCase(fetchImages.fulfilled, (state, action) => {
             state.images.isLoading = false;
-            state.images.data = action.payload;
+            state.images.data = [...state.images.data, ...action.payload];
+
+            console.log(state.images.data);
+
+            if(action.payload.length>0)
+                state.page +=1;
         })
         .addCase(fetchImages.pending, (state) => {
             state.images.isLoading = true;
         })
         .addCase(insertImages.fulfilled, (state) => {
             state.imageThumbnails = [];
+            state.loading = false;
+        })
+        .addCase(insertImages.pending, (state) => {
+            state.loading = true;
+        })
+        .addCase(deleteImage.pending, (state) => {
+            state.loading = true;
+        })
+        .addCase(deleteImage.fulfilled, (state, action) => {
+            state.loading = false;
+            state.images.data = state.images.data.filter((d) => d._id != action.payload.id);
+
         })
     },
 })
   
-export const { toggleImagePreview, setActiveImage, setActiveImageName, setImageThumbnails } = imageManagerSlice.actions
+export const { toggleImagePreview, setActiveImage, setActiveImageName, setImageThumbnails, setImageSearching } = imageManagerSlice.actions
 
 export default imageManagerSlice.reducer
