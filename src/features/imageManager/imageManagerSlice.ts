@@ -73,6 +73,7 @@ export const imageManagerSlice = createSlice({
         .addCase(insertImages.fulfilled, (state) => {
             state.imageThumbnails = [];
             state.loading = false;
+            state.page = 1;
         })
         .addCase(insertImages.pending, (state) => {
             state.loading = true;
@@ -83,6 +84,7 @@ export const imageManagerSlice = createSlice({
         .addCase(deleteImage.fulfilled, (state, action) => {
             state.loading = false;
             state.images.data = state.images.data.filter((d) => d._id != action.payload.id);
+            console.log('Image deletion', action.payload.id, state.images.data);
 
         })
     },

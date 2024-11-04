@@ -46,7 +46,6 @@ const ImageList: React.FC<ImageListProps> = ({thumbnails}) => {
 
     return (
     <>
-        
         {
             thumbnails.map((thumb) => (
                 <ImageCard thumbnail={thumb} key={thumb.value} handleDelete={handleDelete}/>

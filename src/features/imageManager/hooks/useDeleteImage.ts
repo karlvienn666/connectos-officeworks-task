@@ -9,8 +9,12 @@ export const useDeleteImage = () => {
 
     const dispatch = useAppDispatch();
 
-    const handleDelete = (id: string) =>{
-        dispatch(deleteImage(id));
+    const handleDelete = async (id: string) =>{
+
+        console.log(id, "Bakit ayaw ma close?");
+        await dispatch(deleteImage(id));
+
+
         toast({
             title: "Delete Operation",
             description: "Successful",

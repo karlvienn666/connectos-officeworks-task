@@ -54,9 +54,8 @@ export const useFetchImages = () => {
 
         console.log("Image array", images);
 
-        if(images.data.length > 0){
 
-            const mapped = images.data?.map((img) => ({
+        const mapped = images.data?.map((img) => ({
                 id: img._id,
                 key: img.name,
                 value: img.url
@@ -64,7 +63,6 @@ export const useFetchImages = () => {
     
             setMappedImages(mapped);
 
-        }
 
 
     }, [images.data])
