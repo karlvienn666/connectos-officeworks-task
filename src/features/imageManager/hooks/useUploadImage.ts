@@ -8,18 +8,27 @@ export const useUploadImage = (files: File[]) => {
     const dispatch = useAppDispatch();
     const {toast} = useToast();
 
-    const handleSubmit = (event: FormEvent<HTMLFormElement>) =>{
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) =>{
         event.preventDefault();
 
         const formData = new FormData();
         files.forEach(file => formData.append('images', file));
 
-        dispatch(insertImages(formData));
-        toast({
-            title: "Insert Images",
-            description: "Successful",
-            className: 'dark:bg-muted'
-        })
+        try {
+            await dispatch(insertImages(formData)).unwrap();
+            toast({
+                title: "Insert Images",
+                description: "Successful",
+                className: 'dark:bg-muted'
+            })
+            
+        } catch (error) {
+            toast({
+                title: "Insert Images",
+                description: "Failed",
+                className: 'dark:bg-muted'
+            })
+        }
     }
     
     return {

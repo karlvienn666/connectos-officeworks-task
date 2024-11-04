@@ -6,20 +6,26 @@ import { useToast } from "@/hooks/use-toast";
 export const useDeleteImage = () => {
 
     const {toast} = useToast();
-
     const dispatch = useAppDispatch();
 
     const handleDelete = async (id: string) =>{
 
-        console.log(id, "Bakit ayaw ma close?");
-        await dispatch(deleteImage(id));
 
+        try {
+            await dispatch(deleteImage(id)).unwrap();
+            toast({
+                title: "Delete Operation",
+                description: "Successful",
+                className: 'dark:bg-muted'
+            })
 
-        toast({
-            title: "Delete Operation",
-            description: "Successful",
-            className: 'dark:bg-muted'
-        })
+        } catch (error) {
+            toast({
+                title: "Delete Operation",
+                description: "Failed",
+                className: 'dark:bg-muted'
+            }) 
+        }
     }
 
     return {handleDelete}
